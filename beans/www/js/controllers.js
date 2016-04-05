@@ -23,4 +23,7 @@ angular.module('app.controllers', [])
 .controller('createANewAccountCtrl', function($scope) {
 
 })
- 
+
+.controller('pageCtrl', function($scope) {
+
+})

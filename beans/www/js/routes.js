@@ -66,6 +66,12 @@ angular.module('app.routes', [])
     controller: 'createANewAccountCtrl'
   })
 
+  .state('page', {
+    url: '/page',
+    templateUrl: 'templates/page.html',
+    controller: 'pageCtrl'
+  })
+
 $urlRouterProvider.otherwise('/login')
 
   
