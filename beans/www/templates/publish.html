@@ -9,7 +9,7 @@
                 <button id="publish-button21" style="left:-10px;color:#71BDE3;" class="button button-positive  button-full button-clear icon ion-ios-gear-outline"></button>
             </div>
         </div>
-        <div id="publish-markdown4" style="color:#EBEAE8;">
+<!--         <div id="publish-markdown4" style="color:#EBEAE8;">
             <h1>Heading 1</h1>
 
             <h2>Heading 2</h2>
@@ -62,11 +62,13 @@
                     // Foo var bar = 0;
                 </code>
             </p>
-        </div>
+        </div> -->
 
+        <!-- ANGULAR-PAGEDOWN -->
         <section class="row">
-        <textarea class="col-md-6 full-height" id="pad" ng-model="markdown.input"></textarea>
-        <div class="col-md-6 full-height" id="markdown" btf-markdown="markdown.input" style="color:#EBEAE8"></div>
+          <pagedown-editor ng-model="data.content" show-preview="false" placeholder="Type your markdown text here" editor-rows="25"></pagedown-editor>
+          
+          <pagedown-viewer id="markdown" content="data.content"></pagedown-viewer>
         </section>
     </ion-content>
 </ion-view>
