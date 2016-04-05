@@ -10,11 +10,19 @@ angular.module('app.routes', [])
     
   
 
-      .state('splashScreen', {
+/*      .state('splashScreen', {
     url: '/splash',
     templateUrl: 'templates/splashScreen.html',
     controller: 'splashScreenCtrl'
   })
+*/
+
+  .state('login', {
+    url: '/login',
+    templateUrl: 'templates/login.html',
+    controller: 'loginCtrl'
+  })
+
 
   .state('tabsController.publish', {
     url: '/publish',
@@ -52,19 +60,13 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('login', {
-    url: '/login',
-    templateUrl: 'templates/login.html',
-    controller: 'loginCtrl'
-  })
-
   .state('createANewAccount', {
     url: '/signup',
     templateUrl: 'templates/createANewAccount.html',
     controller: 'createANewAccountCtrl'
   })
 
-$urlRouterProvider.otherwise('/splash')
+$urlRouterProvider.otherwise('/login')
 
   
 

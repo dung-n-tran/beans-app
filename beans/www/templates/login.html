@@ -1,6 +1,15 @@
 <ion-view title="Login" id="page6" style="background-color:#21212A;">
     <ion-content overflow-scroll="true" padding="true" class="has-header">
-        <div class="spacer" style="width: 300px; height: 122px;"></div>
+        <div class="spacer" style="width: 300px; height: 50px;"></div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <img src="img/beans_logo_white_1024.png" width="100%" height="auto" align="center">
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="spacer" style="width: 300px; height: 50px;"></div>
+
         <form class="list">
             <ion-list>
                 <label class="item item-input" name="email">
@@ -13,7 +22,8 @@
                 </label>
             </ion-list>
             <div class="spacer" style="height: 40px;"></div>
-            <a ui-sref="tabsController.profile" id="login-button1" style="font-weight:600;border-radius:30px 30px 30px 30px;" class="button button-dark  button-block icon-left ion-android-lock">Log in</a>
+            <a href="#/tabs/read" ui-sref="tabsController.profile" id="login-button1" style="font-weight:600;border-radius:30px 30px 30px 30px;" class="button button-dark  button-block icon-left ion-android-lock">Log in</a>
+            
             <a href="#" onclick="window.open('/signup', '_system', 'location=yes'); return false;" id="login-button2" class="button button-light  button-block button-clear">Or create an account</a>
         </form>
     </ion-content>
