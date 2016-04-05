@@ -18,7 +18,11 @@ html, body, section, .full-height {
 }
 
 #markdown {
-    overflow: auto;
-    border-left: 1px solid black;
-    color: #EBEAE8;    
+    /*overflow: auto;*/
+    /*border-left: 1px solid black;*/
+    color: #EBEAE8;
+}
+
+#markdown ul li {
+    list-style: disc;
 }
