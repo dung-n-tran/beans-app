@@ -1,6 +1,10 @@
 angular.module('app.controllers', [])
   
-.controller('splashScreenCtrl', function($scope) {
+//.controller('splashScreenCtrl', function($scope) {
+//
+//})
+
+.controller('loginCtrl', function($scope) {
 
 })
    
@@ -13,10 +17,6 @@ angular.module('app.controllers', [])
 })
       
 .controller('readCtrl', function($scope) {
-
-})
-   
-.controller('loginCtrl', function($scope) {
 
 })
    
