@@ -20,7 +20,9 @@ angular.module('app.routes', [])
   .state('login', {
     url: '/login',
     templateUrl: 'templates/login.html',
-    controller: 'loginCtrl'
+    controller: 'loginCtrl',
+    resolve: {      
+    }
   })
 
 
@@ -31,7 +33,16 @@ angular.module('app.routes', [])
         templateUrl: 'templates/publish.html',
         controller: 'publishCtrl'
       }
-    }
+    },
+    resolve: {
+        // forces the page to wait for this promise to resolve before controller is loaded
+        // the controller can then inject `user` as a dependency. This could also be done
+        // in the controller, but this makes things cleaner (controller doesn't need to worry
+        // about auth status or timing of accessing data or displaying elements)
+        'user': ['Auth', function (Auth) {
+          return Auth.$requireAuth();
+        }]
+      }
   })
 
   .state('tabsController.profile', {
@@ -41,7 +52,16 @@ angular.module('app.routes', [])
         templateUrl: 'templates/profile.html',
         controller: 'profileCtrl'
       }
-    }
+    },
+    resolve: {
+        // forces the page to wait for this promise to resolve before controller is loaded
+        // the controller can then inject `user` as a dependency. This could also be done
+        // in the controller, but this makes things cleaner (controller doesn't need to worry
+        // about auth status or timing of accessing data or displaying elements)
+        'user': ['Auth', function (Auth) {
+          return Auth.$requireAuth();
+        }]
+      }
   })
 
   .state('tabsController', {
@@ -73,7 +93,5 @@ angular.module('app.routes', [])
   })
 
 $urlRouterProvider.otherwise('/login')
-
-  
-
-});
+})
+;

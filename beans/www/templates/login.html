@@ -14,17 +14,23 @@
             <ion-list>
                 <label class="item item-input" name="email">
                     <span class="input-label">Email</span>
-                    <input type="email" placeholder="john@example.com">
+                    <input type="email" placeholder="john@example.com" ng-model="user.email">
                 </label>
                 <label class="item item-input" name="password">
                     <span class="input-label">Password</span>
-                    <input type="password" placeholder="">
+                    <input type="password" placeholder="" ng-model="user.passwordForLogin">
                 </label>
             </ion-list>
             <div class="spacer" style="height: 40px;"></div>
-            <a href="#/tabs/read" ui-sref="tabsController.profile" id="login-button1" style="font-weight:600;border-radius:30px 30px 30px 30px;" class="button button-dark  button-block icon-left ion-android-lock">Log in</a>
-            
-            <a href="#" onclick="window.open('/signup', '_system', 'location=yes'); return false;" id="login-button2" class="button button-light  button-block button-clear">Or create an account</a>
+            <!-- <a href="#/tabs/read" ui-sref="tabsController.profile" id="login-button1" style="font-weight:600;border-radius:30px 30px 30px 30px;" class="button button-dark  button-block icon-left ion-android-lock">Log in</a> -->
+            <p ng-show="error" class="error" style="color: #fff; text-align: center">{{error}}</p>
+            <button ng-click="login(user)" style="font-weight:600;border-radius:30px 30px 30px 30px;" class="button button-dark button-block icon-left ion-android-lock">Login</button>
+            <!-- <a href="#" onclick="window.open('/signup', '_system', 'location=yes'); return false;" id="login-button2" class="button button-light  button-block button-clear">Or create an account</a> -->
+            <div class="" style="text-align:center">
+            <button ng-click="toSignUpPage()" class="button">
+                Or create an account
+            </button>
+        </div>
         </form>
     </ion-content>
 </ion-view>

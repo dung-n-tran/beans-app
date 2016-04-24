@@ -1,5 +1,6 @@
 <ion-view title="Create a New Account" id="page7" style="background-color:#21212A;">
     <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <p ng-show="error" class="error" style="color: #fff; text-align: center">{{error}}</p>
         <form class="list">
             <ion-list></ion-list>
             <div class="list card">
@@ -8,19 +9,19 @@
                     <form class="list">
                         <label class="item item-input" name="name">
                             <span class="input-label">Full Name</span>
-                            <input type="text" placeholder="John Smith">
+                            <input type="text" placeholder="John Smith" ng-model="user.name">
                         </label>
                         <label class="item item-input" name="email">
                             <span class="input-label">Email</span>
-                            <input type="email" placeholder="me@example.com">
+                            <input type="email" placeholder="me@example.com" ng-model="user.email">
                         </label>
                         <label class="item item-input" name="phone">
                             <span class="input-label">Phone</span>
-                            <input type="tel" placeholder="(987) 654-3210">
+                            <input type="tel" placeholder="(987) 654-3210" ng-model="user.phone">
                         </label>
                         <label class="item item-input" name="password">
                             <span class="input-label">Password</span>
-                            <input type="password" placeholder="">
+                            <input type="password" placeholder="" ng-model="user.password">
                         </label>
                     </form>
                 </div>
@@ -48,7 +49,7 @@
 
                 <p>Ready? Let's go!</p>
             </div>
-            <button id="createANewAccount-button3" class="button button-dark  button-block">Sign up</button>
+            <button id="createANewAccount-button3" class="button button-dark  button-block" ng-click="createUser(user)">Sign up</button>
         </form>
     </ion-content>
 </ion-view>
