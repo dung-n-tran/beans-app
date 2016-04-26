@@ -10,9 +10,34 @@
             </div>
         </div>
         <section class="row">
-          <pagedown-editor ng-model="data.content" show-preview="false" placeholder="Type your markdown text here" editor-rows="25"></pagedown-editor>
+          <form>
+            <div class="">
+              <input type="text" ng-model="article.title" placeholder="Title">
+            </div>
+            <!-- <h1 ng-model="article.title" medium-editor bind-options="{disableReturn: true, disableExtraSpaces: true, toolbar: false}" data-placeholder="Enter a title" style="color:#fff"></h1> -->
+
+            <!-- <div>
+            <h4 style="color: #fff">Tags:</h4>
+            <tags-input ng-model="article.tags">
+                <auto-complete source="loadItems($query)"></auto-complete>
+            </tags-input>
+            </div> -->
+            <div class="" style="margin-top:1em">
+              <input type="text" ng-model="article.description" placeholder="Description">
+            </div>
+            <pagedown-editor ng-model="article.content" show-preview="false" placeholder="Content" editor-rows="25"></pagedown-editor>
+            <!-- <p ng-model="description" medium-editor bind-options="{'toolbar': {'buttons': ['bold', 'italic', 'underline']}}" data-placeholder="Enter a description"></p>
+<p ng-model="text" medium-editor bind-options="mediumBindOptions"></p> -->
+
+            <input id="pictures" type="file" ngf-select ng-model='article.photo' accept="image/*" ngf-max-size="2MB" ngf-multiple="true" ngf-keep="true" ngf-keep-distinct="true" class="btn btn-primary"/>
+
+            <div class="padding">
+            <button type="submit" class="button button-block button-positive" ng-click="submit(article)">Submit</button>
+          </div>
+          </form>
           
-          <pagedown-viewer id="markdown" content="data.content"></pagedown-viewer>
+          <pagedown-viewer id="markdown" content="article.content"></pagedown-viewer>
+          <img href="{{article.photo}}">
         </section>
     </ion-content>
 </ion-view>

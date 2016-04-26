@@ -15,20 +15,24 @@
         </div>
         
         <!--new code start-->
-        <div class="list card">
+        <div class="list card" ng-repeat="article in articles">
 
 		  <div class="item item-balanced item-avatar">
-		    <img src="img/TechCrunch_Logo_2013.png">
-		    <h2>Techcrunch</h2>
-		    <p>Monday, April 04, 2016</p>
+		    <!-- <img src="img/TechCrunch_Logo_2013.png"> -->
+		    <h2>{{article.title}}</h2>
+		    <!-- <a href="#">{{Users.getProfile(article.userId).$loaded().name}}</a><br> -->
+
+		    <a href="#">{{article.clientName}}</a><br>
+		    <span>{{article.timestamp | date:'yyyy-MM-dd HH:mm:ss'}}</span>
 		  </div>
 
 		  <div class="item item-dark item-body">
 		    <a href="#/page">
-			    <img class="full-image" src="https://tctechcrunch2011.files.wordpress.com/2016/03/boxing-gloves-businessman.jpg" width="100%" height="auto">
+			    <!-- <img class="full-image" src="https://tctechcrunch2011.files.wordpress.com/2016/03/boxing-gloves-businessman.jpg" width="100%" height="auto"> -->
+			    <img class="preview" data-ng-src="{{article.photo[0]}}"/>  
 			</a>
 		    <h2>
-		      Platforms are the real powerhouses in Silicon Valley’s business landscape
+		      {{article.description}}
 		    </h2>
 
 		  </div>

@@ -21,7 +21,14 @@ angular.module('app.routes', [])
     url: '/login',
     templateUrl: 'templates/login.html',
     controller: 'loginCtrl',
-    resolve: {      
+    resolve: {
+      requireNoAuth: function($state, Auth){
+        return Auth.$requireAuth().then(function(auth){
+          $state.go('tabsController.read');
+        }, function(error){
+            return;
+        });
+      }
     }
   })
 
@@ -39,9 +46,21 @@ angular.module('app.routes', [])
         // the controller can then inject `user` as a dependency. This could also be done
         // in the controller, but this makes things cleaner (controller doesn't need to worry
         // about auth status or timing of accessing data or displaying elements)
-        'user': ['Auth', function (Auth) {
-          return Auth.$requireAuth();
-        }]
+        'userRef': ['Auth', function (Auth) {
+          return Auth.$requireAuth().catch(function() {
+            $state.go('login');
+          });
+        }],
+        'user': function(Users, Auth){
+          return Auth.$requireAuth().then(function(auth){
+            return Users.getProfile(auth.uid).$loaded();
+          });
+        }
+    //     user: function(Users, Auth){
+    //     return Auth.$requireAuth().then(function(auth){
+    //       return Users.getProfile(auth.uid).$loaded();
+    //   });
+    // }      
       }
   })
 
@@ -58,10 +77,28 @@ angular.module('app.routes', [])
         // the controller can then inject `user` as a dependency. This could also be done
         // in the controller, but this makes things cleaner (controller doesn't need to worry
         // about auth status or timing of accessing data or displaying elements)
-        'user': ['Auth', function (Auth) {
-          return Auth.$requireAuth();
-        }]
+        // user: ['Auth', function (Auth) {
+        //   return Auth.$requireAuth().catch(function() {
+        //     $state.go('/read');
+        //   });
+        // }],
+        // profile: ['Users', function(Users) {
+        //   return Auth.$requireAuth().then(function(auth){
+        //     return Users.getProfile(auth.uid).$loaded();
+        //   });
+        // }]
+      user: function($state, Users, Auth){
+        return Auth.$requireAuth().catch(function(){
+          $state.go('login');
+      });
+    },
+      profile: function(Users, Auth){
+        return Auth.$requireAuth().then(function(auth){
+          return Users.getProfile(auth.uid).$loaded();
+      });
+    }
       }
+
   })
 
   .state('tabsController', {
@@ -77,13 +114,27 @@ angular.module('app.routes', [])
         templateUrl: 'templates/read.html',
         controller: 'readCtrl'
       }
+    },
+    resolve: {
+      // articles: function(Articles) {
+      //   return Articles.
+      // }
     }
   })
 
   .state('createANewAccount', {
     url: '/signup',
     templateUrl: 'templates/createANewAccount.html',
-    controller: 'createANewAccountCtrl'
+    controller: 'createANewAccountCtrl',
+    resolve: {
+      requireNoAuth: function($state, Auth){
+        return Auth.$requireAuth().then(function(auth){
+          $state.go('tabsController.read');
+        }, function(error){
+            return;
+        });
+      }
+    }
   })
 
   .state('page', {

@@ -1,10 +1,10 @@
-angular.module('app.controllers', [])
+angular.module('app.controllers', ['firebase'])
   
 //.controller('splashScreenCtrl', function($scope) {
 //
 //})
 
-.controller('loginCtrl', function($scope, $ionicModal, $location, Auth, rootRef, $rootScope) {    
+.controller('loginCtrl', function($scope, $ionicModal, $location, Auth, rootRef, $rootScope) {
 
   $scope.login = function(user) {
   	$scope.error = null;
@@ -28,7 +28,7 @@ angular.module('app.controllers', [])
   	    .catch(function(error) {
   	      $scope.error = error.message;		  
 		})
-  		console.log("login() called.")
+  		console.log("login() called.");      
 	}
   }	
 
@@ -41,13 +41,53 @@ angular.module('app.controllers', [])
   }
 })
    
-.controller('publishCtrl', function($scope, user) {
-  $scope.user = user;
+.controller('publishCtrl', function($scope, userRef, user, FirebaseUrl, $firebaseArray, $state, Upload) {
+  // $scope.user = user;
+
+  var articlesRef = new Firebase(FirebaseUrl+'articles');  
+  var articles = $firebaseArray(articlesRef);
+  
+  $scope.submit = function(article) {
+    Upload.base64DataUrl(article.photo).then(function(base64Urls) {
+      $scope.articlePhoto = base64Urls;
+      console.log($scope.articlePhoto);
+    });
+    articles.$add({
+      'title': article.title,
+      'description': article.description,
+      'photo': $scope.articlePhoto,
+      'content': article.content,
+      'clientId': userRef.auth.uid,
+      'clientName': user.name,
+      timestamp: Firebase.ServerValue.TIMESTAMP
+    });
+    $state.go('tabsController.profile');
+  }
+
+  $scope.imageString = [];
+  $scope.processFiles = function(file){
+    
+       var fileReader = new FileReader();
+          fileReader.onload = function (event) {
+            var uri = event.target.result;
+              $scope.imageString = uri;     
+          };
+          fileReader.readAsDataURL(file.file);
+    
+  };
+    
+  
 })
-   
-.controller('profileCtrl', function($scope, Auth, $location, user) {
-	console.log(user);
+
+.controller('profileCtrl', function($scope, Auth, $location, user, profile, md5) {
   $scope.user = user;
+  $scope.profile = profile;
+
+  $scope.updateProfile = function(){
+  $scope.profile.emailHash = md5.createHash(auth.password.email);
+  $scope.profile.$save();
+  };
+
   $scope.logout = function() {
   		console.log(Auth.$getAuth());
         Auth.$unauth();
@@ -55,7 +95,12 @@ angular.module('app.controllers', [])
       };
 })
       
-.controller('readCtrl', function($scope) {
+.controller('readCtrl', function($scope, FirebaseUrl, $firebaseArray, Users) {
+  var articlesRef = new Firebase(FirebaseUrl+'articles');  
+  var articles = $firebaseArray(articlesRef);
+  $scope.articles = articles;
+  // console.log(Users.getProfile(articles[1].userId).name)
+  console.log($scope.articles);
 
 })
    
@@ -70,9 +115,12 @@ angular.module('app.controllers', [])
   		  })
   		  .then(function(userData) {
   		  	rootRef.child("users").child(userData.uid).set({
-                email: user.email,
                 name: user.name,
-                password: user.password
+                email: user.email,
+                phone: user.phone,                
+                password: user.password,
+                facebookUsername: user.facebookUsername,
+                twitterUsername: user.twitterUsername
             });
   		  })
   		  .then(function(/* user */) {
@@ -104,5 +152,4 @@ angular.module('app.controllers', [])
 })
 
 .controller('pageCtrl', function($scope) {
-
 })
