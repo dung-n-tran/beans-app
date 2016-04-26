@@ -62,20 +62,7 @@ angular.module('app.controllers', ['firebase'])
       timestamp: Firebase.ServerValue.TIMESTAMP
     });
     $state.go('tabsController.profile');
-  }
-
-  $scope.imageString = [];
-  $scope.processFiles = function(file){
-    
-       var fileReader = new FileReader();
-          fileReader.onload = function (event) {
-            var uri = event.target.result;
-              $scope.imageString = uri;     
-          };
-          fileReader.readAsDataURL(file.file);
-    
-  };
-    
+  }    
   
 })
 
@@ -95,13 +82,18 @@ angular.module('app.controllers', ['firebase'])
       };
 })
       
-.controller('readCtrl', function($scope, FirebaseUrl, $firebaseArray, Users) {
+.controller('readCtrl', function($scope, FirebaseUrl, $firebaseArray, Users, $state) {
   var articlesRef = new Firebase(FirebaseUrl+'articles');  
   var articles = $firebaseArray(articlesRef);
   $scope.articles = articles;
   // console.log(Users.getProfile(articles[1].userId).name)
   console.log($scope.articles);
-
+  
+  $scope.openArticle = function(articleId) {    
+    $state.go('page', {
+      articleId: articleId
+    })
+  }
 })
    
 .controller('createANewAccountCtrl', function($scope, Auth, rootRef, $location) {
@@ -151,5 +143,17 @@ angular.module('app.controllers', ['firebase'])
   }
 })
 
-.controller('pageCtrl', function($scope) {
+.controller('pageCtrl', function($scope, FirebaseUrl, $firebaseArray, $stateParams) {
+  var articlesRef = new Firebase(FirebaseUrl+'articles');  
+  var articles = $firebaseArray(articlesRef);
+  
+  var articleId = $stateParams.articleId;
+  // $scope.getArticle = function(articleId) {
+  //   var article = $scope.articles.$getRecord(articleId);  
+  //   return article;
+  // }
+  // $scope.article = $scope.articles.$getRecord($stateParams.articleId);
+  articles.$loaded().then(function(articles) {    
+    $scope.article = articles.$getRecord(articleId);  
+  })    
 })

@@ -19,17 +19,16 @@
 
 		  <div class="item item-balanced item-avatar">
 		    <img src="img/TechCrunch_Logo_2013.png">
-		    <h2>Techcrunch</h2>
-		    <p>Monday, April 04, 2016</p>
+		    <h2>{{article.title}}</h2>
+		    <p>{{article.clientName}}</p>
+		    <span>{{article.timestamp | date:'yyyy-MM-dd HH:mm:ss'}}</span>
 		  </div>
 
-		  <div class="item item-dark item-body">
+		  <div class="item item-body">
 		    <a href="#">
-			    <img class="full-image" src="https://tctechcrunch2011.files.wordpress.com/2016/03/boxing-gloves-businessman.jpg" width="100%" height="auto">
+			    <img class="preview" data-ng-src="{{article.photo[0]}}"/>
 			</a>
-		    <h2>
-		      Platforms are the real powerhouses in Silicon Valley’s business landscape
-		    </h2>
+		    <pagedown-viewer class="markdown-viewer" content="article.content"></pagedown-viewer>
 
 		  </div>
 		  <div class="item item-dark item-divider">

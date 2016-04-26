@@ -138,9 +138,9 @@ angular.module('app.routes', [])
   })
 
   .state('page', {
-    url: '/page',
+    url: '/page/:articleId',
     templateUrl: 'templates/page.html',
-    controller: 'pageCtrl'
+    controller: 'pageCtrl'    
   })
 
 $urlRouterProvider.otherwise('/login')

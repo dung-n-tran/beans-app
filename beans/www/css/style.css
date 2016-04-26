@@ -17,7 +17,7 @@ html, body, section, .full-height {
     box-shadow: none;
 }
 
-#markdown {
+.markdown-viewer {
     /*overflow: auto;*/
     /*border-left: 1px solid black;*/
     color: #EBEAE8;
