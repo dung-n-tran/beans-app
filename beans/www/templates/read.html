@@ -19,7 +19,7 @@
 
 		  <div class="item item-balanced item-avatar">
 		    <!-- <img src="img/TechCrunch_Logo_2013.png"> -->
-		    <h2>{{article.title}}</h2>
+		    <a ng-click="openArticle(article.$id)"><h2>{{article.title}}</h2></a>
 		    <!-- <a href="#">{{Users.getProfile(article.userId).$loaded().name}}</a><br> -->
 
 		    <a href="#">{{article.clientName}}</a><br>

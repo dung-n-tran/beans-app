@@ -48,10 +48,14 @@ angular.module('app.controllers', ['firebase'])
   var articles = $firebaseArray(articlesRef);
   
   $scope.submit = function(article) {
-    Upload.base64DataUrl(article.photo).then(function(base64Urls) {
+    if (!article.photo) {
+      $scope.articlePhoto = null;
+    } else {
+      Upload.base64DataUrl(article.photo).then(function(base64Urls) {
       $scope.articlePhoto = base64Urls;
-      console.log($scope.articlePhoto);
     });
+    }
+    
     articles.$add({
       'title': article.title,
       'description': article.description,
